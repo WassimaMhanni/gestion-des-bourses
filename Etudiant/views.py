@@ -4,10 +4,16 @@ from django.http import HttpResponse
 #la en meme  les fonctions suad  on utilise
 def home (request ) :
     return render(request,'home.html')
+
+
 def login(request):
     return render(request,'login.html')
 def register(request):
     return render(request,'register.html')
+
+def contactez_nous(request):
+    return render(request, 'contactez-nous.html')
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Etudiant
@@ -45,3 +51,30 @@ def login_etd(request):
     return render(request, 'login.html')
 #def espace_etudiant(request):
     #return render(request, 'espace_etudiant.html')
+
+
+
+
+from django.shortcuts import render, redirect
+from .forms import MessageForm
+from django.contrib import messages
+
+def contact(request):
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Votre message a été envoyé avec succès !")
+            messages.debug(request, "Débogage : Message envoyé avec succès !")
+
+            return redirect('message_bien_envoye')  # Utilise le nom de l'URL définie dans urls.py
+  # Redirige vers la page de contact ou une autre page après envoi*
+        else:
+            print(form.errors)  # Affiche les erreurs de validation dans la console
+    else:
+        form = MessageForm()
+
+    return render(request, 'contactez-nous.html', {'form': form})
+def message_bien_envoyer(request):
+    return render(request, 'Messagebienenvoyer.html')
+

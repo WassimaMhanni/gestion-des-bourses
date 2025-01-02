@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Etudiant',
-    'EspaceETD'
+    'EspaceETD',
+    'widget_tweaks',
 #on fait  les application créer : par exemple  etudiant
 ]
 
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',  # Ce middleware doit être activé
 ]
 
 ROOT_URLCONF = 'djangoapp.urls'
@@ -136,3 +138,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Ajoutez cette configuration pour servir les fichiers téléchargés
+###laia
+# settings.py
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
